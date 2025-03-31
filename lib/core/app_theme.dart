@@ -12,9 +12,7 @@ class AppTheme {
       secondary: Color(0xFFFF8C00), // Laranja vibrante
       onSecondary: Colors.black, // Texto sobre secundária
       error: Color(0xFFFF5252),
-      onError: Colors.white,
-      background: Color(0xFF2C2C2C), // Cor de fundo geral
-      onBackground: Colors.white, // Texto sobre fundo
+      onError: Colors.white, // Texto sobre fundo
       surface: Color(0xFF3A3A3A), // Superfície para cartões/botões
       onSurface: Colors.white, // Texto sobre superfície
     ),
@@ -32,7 +30,7 @@ class AppTheme {
     // Estilo dos Botões
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFFFF8C00), // Laranja vibrante
+        backgroundColor: const Color(0xFFFF8C00), // Laranja vibrante
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -68,8 +66,6 @@ class AppTheme {
       onSecondary: Colors.black,
       error: Color(0xFFFF5252),
       onError: Colors.white,
-      background: Colors.white,
-      onBackground: Colors.black,
       surface: Color(0xFFF5F5F5),
       onSurface: Colors.black,
     ),
@@ -87,7 +83,7 @@ class AppTheme {
     // Estilo dos Botões
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFFFF8C00), // Laranja vibrante
+        backgroundColor: const Color(0xFFFF8C00), // Laranja vibrante
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

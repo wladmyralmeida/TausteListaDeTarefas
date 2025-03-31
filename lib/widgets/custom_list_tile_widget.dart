@@ -52,7 +52,7 @@ class _CustomListTileWidgetState extends State<CustomListTileWidget> {
                               actions: <Widget>[
                                 ElevatedButton(
                                   style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll<Color>(Colors.red),
+                                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.red),
                                   ),
                                   child: const Text('Cancelar'),
                                   onPressed: () {
@@ -61,7 +61,7 @@ class _CustomListTileWidgetState extends State<CustomListTileWidget> {
                                 ),
                                 ElevatedButton(
                                   style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
+                                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.green),
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -103,7 +103,7 @@ class _CustomListTileWidgetState extends State<CustomListTileWidget> {
                               actions: <Widget>[
                                 ElevatedButton(
                                   style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll<Color>(Colors.red),
+                                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.red),
                                   ),
                                   child: const Text('Cancelar'),
                                   onPressed: () {
@@ -112,7 +112,7 @@ class _CustomListTileWidgetState extends State<CustomListTileWidget> {
                                 ),
                                 ElevatedButton(
                                   style: const ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
+                                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.green),
                                   ),
                                   onPressed: () {
                                     setState(() {

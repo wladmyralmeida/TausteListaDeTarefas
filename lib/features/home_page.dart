@@ -59,8 +59,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ListTile(
-              title: Text('Tauste Supermercados'),
-              subtitle: Text('Bem-vindo ao Tauste!'),
+              title: const Text('Tauste Supermercados'),
+              subtitle: const Text('Bem-vindo ao Tauste!'),
               trailing: Checkbox(
                   checkColor: Colors.white,
                   activeColor: Colors.blue,

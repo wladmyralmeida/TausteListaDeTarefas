@@ -12,15 +12,16 @@ class _MyWidgetState extends State<MyWidget> {
       content: Text('Sua tarefa mudou de "em progresso" para "concluida"'));
 
   @override
-  initState() {
+  void initState() {
     //inicio uma chamada para uma api, pra buscar todos as terefas que tem la.
   }
 
-  didChangeDependences() {
+  void didChangeDependences() {
     //quando uma tarefa mudar de 'em progresso' para 'concluida'
     //-> execute uma funcao de mostrar uma snackbar de sucesso.
   }
 
+  @override
   Widget build(BuildContext context) {
     Widget textField = const TextField(
       maxLines: 1,
@@ -45,7 +46,7 @@ class _MyWidgetState extends State<MyWidget> {
           onLongPress: () => print('cliquei e segurei'),
           child: Text(
             'Tarefa ${numeroDaTarefaArrowFunction()}',
-            style: TextStyle(fontSize: 30.0),
+            style: const TextStyle(fontSize: 30.0),
           ),
         );
 
@@ -54,7 +55,7 @@ class _MyWidgetState extends State<MyWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           textField,
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             // child: ListView(
             //   children: [
@@ -75,7 +76,7 @@ class _MyWidgetState extends State<MyWidget> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(91, 54, 105, 244),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           // Esse botão irá implementar a função de adicionar itens ao carrinho.

@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Supermercado',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      home: HomePage(),
+      home: const HomePage(),
       // home:  HomePage(title: 'Tauste', onToggleTheme: (){},),
     );
   }
