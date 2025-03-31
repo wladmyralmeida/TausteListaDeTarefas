@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/app/model/tarefa_model.dart';
 import 'package:todoapp/widgets/custom_text_field.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +11,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isChecked = false;
+  final TextEditingController tituloController = TextEditingController();
+  final TextEditingController descricaoController = TextEditingController();
+  List<TarefaModel> tarefas = [];
 
   @override
   Widget build(BuildContext context) {
@@ -86,25 +90,57 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: const Column(
+      body: Column(
         children: [
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           CustomTextField(
             hintText: 'Digite o título',
             label: 'Título',
+            controller: tituloController,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           CustomTextField(
             hintText: 'Digite a descrição',
             label: 'Descrição',
+            controller: descricaoController,
+          ),
+          SizedBox(
+            height: 500,
+            child: ListView.builder(
+              itemCount: tarefas.length,
+              itemBuilder: (context, index) {
+                final tarefa = TarefaModel(
+                  titulo: tarefas[index].titulo,
+                  descricao: tarefas[index].descricao,
+                );
+
+                return ListTile(
+                  title: Text(tarefa.titulo),
+                  subtitle: Text(tarefa.descricao),
+                );
+              },
+            ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         //footer
-        onPressed: () {},
+        onPressed: _addTarefa,
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  void _addTarefa() {
+    setState(() {
+      tarefas.add(
+        TarefaModel(
+          titulo: tituloController.text,
+          descricao: descricaoController.text,
+        ),
+      );
+    });
+    tituloController.clear();
+    descricaoController.clear();
   }
 }

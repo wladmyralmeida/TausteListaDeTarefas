@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final String? label;
+  final TextEditingController controller;
 
-  const CustomTextField({super.key, required this.hintText, this.label});
+  const CustomTextField({
+    super.key,
+    required this.hintText,
+    this.label,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +24,7 @@ class CustomTextField extends StatelessWidget {
           // null = tipo, vir vazio != null ''
           if (label != null && label!.isNotEmpty) Text(label!),
           TextField(
+            controller: controller,
             maxLines: 1,
             decoration: InputDecoration(
               hintText: hintText,
