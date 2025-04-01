@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController descricaoController = TextEditingController();
   List<TarefaModel> tarefas = [];
+  final _form = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,38 +91,57 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 16),
-          CustomTextField(
-            hintText: 'Digite o título',
-            label: 'Título',
-            controller: tituloController,
-          ),
-          const SizedBox(height: 16),
-          CustomTextField(
-            hintText: 'Digite a descrição',
-            label: 'Descrição',
-            controller: descricaoController,
-          ),
-          SizedBox(
-            height: 500,
-            child: ListView.builder(
-              itemCount: tarefas.length,
-              itemBuilder: (context, index) {
-                final tarefa = TarefaModel(
-                  titulo: tarefas[index].titulo,
-                  descricao: tarefas[index].descricao,
-                );
-
-                return ListTile(
-                  title: Text(tarefa.titulo),
-                  subtitle: Text(tarefa.descricao),
-                );
+      body: Form(
+        key: _form,
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            CustomTextField(
+              hintText: 'Digite o título',
+              label: 'Título',
+              controller: tituloController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'O campo de título não pode ser vazio';
+                }
+                return null;
               },
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            CustomTextField(
+              hintText: 'Digite a descrição',
+              label: 'Descrição',
+              controller: descricaoController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'O campo de descrição não pode ser vazio';
+                } else if (value.length < 3) {
+                  return 'A descrição precisar ter pelo menos 3 caracteres';
+                }
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 500,
+              child: ListView.builder(
+                itemCount: tarefas.length,
+                itemBuilder: (context, index) {
+                  final tarefa =
+                      tarefas[index]; // usa diretamente o modelo existente
+
+                  return ListTile(
+                    title: Text(tarefa.titulo),
+                    subtitle: Text(tarefa.descricao),
+                    trailing: IconButton(
+                      onPressed: () => _removeTarefa(index),
+                      icon: const Icon(Icons.delete),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         //footer
@@ -131,16 +151,34 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // " _ " = Métodos privados, que só podem ser acessados no próprio contexto;
   void _addTarefa() {
-    setState(() {
-      tarefas.add(
-        TarefaModel(
-          titulo: tituloController.text,
-          descricao: descricaoController.text,
-        ),
-      );
-    });
-    tituloController.clear();
-    descricaoController.clear();
+    if (_form.currentState!.validate()) {
+      setState(() {
+        tarefas.add(
+          TarefaModel(
+            titulo: tituloController.text,
+            descricao: descricaoController.text,
+          ),
+        );
+      });
+
+      tituloController.clear();
+      descricaoController.clear();
+    }
   }
+
+  void _removeTarefa(int index) {
+    setState(() {
+      tarefas.removeAt(index);
+    });
+
+    //Removendo o Index da Lista;
+    // setState(() {
+    //   tarefas.removeAt(index);
+    // });
+  }
+
+  // ToDo: Fazer a Filtragem da Tarefa na Lista pelo titulo dela.
+  // _filtrarTarefa(){}
 }
