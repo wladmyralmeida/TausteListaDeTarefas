@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/app/model/tarefa_model.dart';
-import 'package:todoapp/widgets/custom_text_field.dart';
+import 'package:todoapp/features/home/models/tarefa_model.dart';
+import 'package:todoapp/core/widgets/custom_text_field.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
