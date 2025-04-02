@@ -132,9 +132,18 @@ class _HomePageState extends State<HomePage> {
                   return ListTile(
                     title: Text(tarefa.titulo),
                     subtitle: Text(tarefa.descricao),
-                    trailing: IconButton(
-                      onPressed: () => _removeTarefa(index),
-                      icon: const Icon(Icons.delete),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () => _editarTarefa(index),
+                          icon: const Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: () => _removeTarefa(index),
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ],
                     ),
                   );
                 },
@@ -172,11 +181,17 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       tarefas.removeAt(index);
     });
+  }
 
-    //Removendo o Index da Lista;
-    // setState(() {
-    //   tarefas.removeAt(index);
-    // });
+  void _editarTarefa(int index) {
+    final tarefa = tarefas[index];
+
+    tituloController.text = tarefa.titulo;
+    descricaoController.text = tarefa.descricao;
+
+    setState(() {
+      _removeTarefa(index);
+    });
   }
 
   // ToDo: Fazer a Filtragem da Tarefa na Lista pelo titulo dela.
