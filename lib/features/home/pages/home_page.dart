@@ -14,7 +14,16 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController descricaoController = TextEditingController();
   List<TarefaModel> tarefas = [];
+  List<TarefaModel> tarefasFiltradas = [];
   final _form = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    //Ficar ouvindo o campo de titulo sendo digitado, e ja vou filtrando.
+    tituloController.addListener(_filtrarTarefa);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,10 +133,9 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 500,
               child: ListView.builder(
-                itemCount: tarefas.length,
+                itemCount: tarefasFiltradas.length,
                 itemBuilder: (context, index) {
-                  final tarefa =
-                      tarefas[index]; // usa diretamente o modelo existente
+                  final tarefa = tarefasFiltradas[index];
 
                   return ListTile(
                     title: Text(tarefa.titulo),
@@ -194,6 +202,19 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // ToDo: Fazer a Filtragem da Tarefa na Lista pelo titulo dela.
-  // _filtrarTarefa(){}
+  void _filtrarTarefa() {
+    final tituloDaTarefa = tituloController.text.toLowerCase();
+
+    setState(() {
+      // Tarefas filtradas buscando na lista de tarefas que eu tenho, o mesmo titulo da lista de tarefas o campo titulo;
+      tarefasFiltradas = tarefas
+          .where(
+              (tarefa) => tarefa.titulo.toLowerCase().contains(tituloDaTarefa))
+          .toList();
+    });
+  }
+
+  //ToDo: Criar um novo campo de text field com controller que só vai filtrar
+  // as tarefas, após um onTap num IconButton que possui um ícone de pesquisa
+  // Widgets que PODEM ser usados -> Icon(Icons.search), GestureDetector, IconButton, TextField;
 }
