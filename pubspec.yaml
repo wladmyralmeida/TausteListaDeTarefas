@@ -19,3 +19,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto_Condensed-Bold.ttf
+        - asset: assets/fonts/Roboto_Condensed-Medium.ttf
+        - asset: assets/fonts/Roboto_Condensed-Regular.ttf

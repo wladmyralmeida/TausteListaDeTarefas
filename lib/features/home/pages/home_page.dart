@@ -48,16 +48,13 @@ class _HomePageState extends State<HomePage> {
                 // AssetImage
                 // NetworkImage
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://i.fbcd.co/products/resized/resized-750-500/d4c961732ba6ec52c0bbde63c9cb9e5dd6593826ee788080599f68920224e27d.jpg'),
+                  backgroundImage: AssetImage('assets/images/perfil.jpg'),
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxtparQeAnR6iyIHuXktc_785DhjtXdLLRIQ&s'),
+                  backgroundImage: AssetImage('assets/images/perfil.jpg'),
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxtparQeAnR6iyIHuXktc_785DhjtXdLLRIQ&s'),
+                  backgroundImage: AssetImage('assets/images/perfil.jpg'),
                 ),
               ],
               decoration: BoxDecoration(color: Color(0xFFF07400)),
