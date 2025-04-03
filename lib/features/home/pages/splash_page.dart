@@ -11,7 +11,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     //Apos passados 3 segundos, da inicializacao do SplashPage
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 3), () {
       // Quero Navegar para a home, removendo as paginas anteriores;
       Navigator.pushReplacementNamed(context, '/home');
     });
