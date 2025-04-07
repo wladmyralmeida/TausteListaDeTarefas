@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController pesquisaController = TextEditingController();
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController descricaoController = TextEditingController();
   List<TarefaModel> tarefas = [];
@@ -20,7 +21,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     //Ficar ouvindo o campo de titulo sendo digitado, e ja vou filtrando.
-    tituloController.addListener(_filtrarTarefa);
+    //Aqui eu passo por parâmetro na função na função filtrar, o texto que está no campo titulo;
+    tituloController.addListener(() => _filtrarTarefa(tituloController.text));
 
     super.initState();
   }
@@ -38,6 +40,20 @@ class _HomePageState extends State<HomePage> {
         key: _form,
         child: Column(
           children: [
+            const SizedBox(height: 16),
+            CustomTextField(
+              hintText: 'Informe o que deseja pesquisar',
+              label: 'Pesquisa',
+              controller: pesquisaController,
+              validator: (value) {
+                return null;
+              },
+              suffixButton: IconButton(
+                onPressed: () => _filtrarTarefa(pesquisaController
+                    .text), //Aqui eu passo por parâmetro na função na função filtrar, o texto que está no campo pesquisa;
+                icon: const Icon(Icons.search),
+              ),
+            ),
             const SizedBox(height: 16),
             CustomTextField(
               hintText: 'Digite o título',
@@ -64,8 +80,7 @@ class _HomePageState extends State<HomePage> {
                 return null;
               },
             ),
-            SizedBox(
-              height: 500,
+            Expanded(
               child: ListView.builder(
                 itemCount: tarefasFiltradas.length,
                 itemBuilder: (context, index) {
@@ -136,9 +151,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _filtrarTarefa() {
-    final tituloDaTarefa = tituloController.text.toLowerCase();
-
+  void _filtrarTarefa(String tituloDaTarefa) {
     setState(() {
       // Tarefas filtradas buscando na lista de tarefas que eu tenho, o mesmo titulo da lista de tarefas o campo titulo;
       tarefasFiltradas = tarefas
@@ -147,8 +160,4 @@ class _HomePageState extends State<HomePage> {
           .toList();
     });
   }
-
-  //ToDo: Criar um novo campo de text field com controller que só vai filtrar
-  // as tarefas, após um onTap num IconButton que possui um ícone de pesquisa
-  // Widgets que PODEM ser usados -> Icon(Icons.search), GestureDetector, IconButton, TextField;
 }

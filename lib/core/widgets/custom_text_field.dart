@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final String? label;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final Widget? suffixButton;
 
   const CustomTextField({
     super.key,
@@ -12,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.label,
     this.validator,
     required this.controller,
+    this.suffixButton,
   });
 
   @override
@@ -25,11 +27,13 @@ class CustomTextField extends StatelessWidget {
           //if(label != null) mostra label else mostra string vazia.
           // null = tipo, vir vazio != null ''
           if (label != null && label!.isNotEmpty) Text(label!),
+
           TextFormField(
             controller: controller,
             maxLines: 1,
             validator: validator,
             decoration: InputDecoration(
+              suffixIcon: suffixButton,
               hintText: hintText,
               border: const OutlineInputBorder(
                 borderSide: BorderSide(),
