@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/core/app_themes.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});
@@ -36,7 +37,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 backgroundImage: AssetImage('assets/images/perfil.jpg'),
               ),
             ],
-            decoration: BoxDecoration(color: Color(0xFFF07400)),
+            decoration: BoxDecoration(color: AppThemes.orange),
             accountName: Text('Fulano De Tal'),
             accountEmail: Text('fulano@tauste.com'),
           ),

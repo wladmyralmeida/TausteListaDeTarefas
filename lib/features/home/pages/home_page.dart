@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoapp/core/app_themes.dart';
 import 'package:todoapp/features/home/models/tarefa_model.dart';
 import 'package:todoapp/core/widgets/custom_text_field.dart';
 import 'package:todoapp/features/home/pages/widgets/drawer_widget.dart';
+import 'package:todoapp/features/home/pages/state/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,12 +32,26 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF07400),
+        backgroundColor: AppThemes.orange,
         title: const Text('Lista de Tarefas'),
         centerTitle: true,
-      ), //Cabeçalho
+        actions: [
+          IconButton(
+            icon: Icon(
+              themeProvider.themeMode == ThemeMode.dark
+                  ? Icons.wb_sunny
+                  : Icons.nights_stay,
+            ),
+            onPressed: () {
+              themeProvider.toggleTheme();
+            },
+          ),
+        ],
+      ),
       drawer: const DrawerWidget(),
       body: Form(
         key: _form,
@@ -160,4 +177,6 @@ class _HomePageState extends State<HomePage> {
           .toList();
     });
   }
+
+  _switchTheme() {}
 }
