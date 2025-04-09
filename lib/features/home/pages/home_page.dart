@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
     descricaoController.text = tarefa.descricao ?? '';
 
     setState(() {
-      _removeTarefa(index);
+      //Realizar O SAVE Novamente da tarefa que tem o ID que você recebeu no index.
     });
   }
 
