@@ -41,4 +41,7 @@ class TarefaService {
       throw Exception('Deu erro ao tentar editar a tarefa de id: $id');
     }
   }
+
+  //ToDo: criar método salvar a tarefa.
+  //https://jsonplaceholder.typicode.com/todos -> POST
 }

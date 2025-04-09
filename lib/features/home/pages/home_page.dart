@@ -148,6 +148,11 @@ class _HomePageState extends State<HomePage> {
     if (_form.currentState!.validate()) {
       setState(() {
         tarefas.add(
+          // TarefaModel(
+          //   id: tarefa.id,
+          //   titulo: tarefa.titulo,
+          //   isCompleted: tarefa.isCompleted,
+          // ),
           TarefaModel(
             id: 1,
             titulo: tituloController.text,
