@@ -119,11 +119,11 @@ class _HomePageState extends State<HomePage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          onPressed: () => _editarTarefa(index),
+                          onPressed: () => _editarTarefa(tarefa.id),
                           icon: const Icon(Icons.edit),
                         ),
                         IconButton(
-                          onPressed: () => _removeTarefa(index),
+                          onPressed: () => _removeTarefa(tarefa.id),
                           icon: const Icon(Icons.delete),
                         ),
                       ],
@@ -149,6 +149,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         tarefas.add(
           TarefaModel(
+            id: 1,
             titulo: tituloController.text,
             descricao: descricaoController.text,
             isCompleted: false,
@@ -161,12 +162,26 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _removeTarefa(int index) {
+  Future<void> _removeTarefa(int index) async {
+    final response = await tarefaService.deleteTarefa(index);
     setState(() {
       tarefas.removeAt(index);
+      if (response) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Tarefa excluída com sucesso: $index',
+            ),
+          ),
+        );
+      }
     });
+    // setState(() {
+    //   tarefas.removeAt(index);
+    // });
   }
 
+  //ToDo: Atualizar o método editar para consumir da API.
   void _editarTarefa(int index) {
     final tarefa = tarefas[index];
 

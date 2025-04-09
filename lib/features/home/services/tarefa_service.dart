@@ -17,4 +17,19 @@ class TarefaService {
       throw Exception('Deu erro ao tentar buscar do servidor as tarefas');
     }
   }
+
+  Future<bool> deleteTarefa(int id) async {
+    final url = Uri.parse('$_baseUrl/$id');
+
+    final response = await http.delete(url);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Deu erro ao tentar excluir a tarefa de id: $id');
+    }
+  }
+
+  //ToDo: criar método de editar tarefa
+  //https://jsonplaceholder.typicode.com/todos/1 -> PUT
 }
