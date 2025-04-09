@@ -5,6 +5,7 @@ import 'package:todoapp/features/home/models/tarefa_model.dart';
 import 'package:todoapp/core/widgets/custom_text_field.dart';
 import 'package:todoapp/features/home/pages/widgets/drawer_widget.dart';
 import 'package:todoapp/features/home/pages/state/theme_provider.dart';
+import 'package:todoapp/features/home/services/tarefa_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController descricaoController = TextEditingController();
   List<TarefaModel> tarefas = [];
   List<TarefaModel> tarefasFiltradas = [];
+  final tarefaService = TarefaService();
   final _form = GlobalKey<FormState>();
 
   @override
@@ -26,8 +28,15 @@ class _HomePageState extends State<HomePage> {
     //Ficar ouvindo o campo de titulo sendo digitado, e ja vou filtrando.
     //Aqui eu passo por parâmetro na função na função filtrar, o texto que está no campo titulo;
     tituloController.addListener(() => _filtrarTarefa(tituloController.text));
-
+    loadTarefas();
     super.initState();
+  }
+
+  Future<void> loadTarefas() async {
+    final response = await tarefaService.getTarefas();
+    setState(() {
+      tarefas = response;
+    });
   }
 
   @override
@@ -99,13 +108,13 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: tarefasFiltradas.length,
+                itemCount: tarefas.length,
                 itemBuilder: (context, index) {
-                  final tarefa = tarefasFiltradas[index];
+                  final tarefa = tarefas[index];
 
                   return ListTile(
                     title: Text(tarefa.titulo),
-                    subtitle: Text(tarefa.descricao),
+                    subtitle: Text(tarefa.descricao ?? ''),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -142,6 +151,7 @@ class _HomePageState extends State<HomePage> {
           TarefaModel(
             titulo: tituloController.text,
             descricao: descricaoController.text,
+            isCompleted: false,
           ),
         );
       });
@@ -161,7 +171,7 @@ class _HomePageState extends State<HomePage> {
     final tarefa = tarefas[index];
 
     tituloController.text = tarefa.titulo;
-    descricaoController.text = tarefa.descricao;
+    descricaoController.text = tarefa.descricao ?? '';
 
     setState(() {
       _removeTarefa(index);
@@ -177,6 +187,4 @@ class _HomePageState extends State<HomePage> {
           .toList();
     });
   }
-
-  _switchTheme() {}
 }
