@@ -181,16 +181,29 @@ class _HomePageState extends State<HomePage> {
     // });
   }
 
-  //ToDo: Atualizar o método editar para consumir da API.
-  void _editarTarefa(int index) {
+  Future<void> _editarTarefa(int index) async {
     final tarefa = tarefas[index];
 
     tituloController.text = tarefa.titulo;
     descricaoController.text = tarefa.descricao ?? '';
 
+    final response = await tarefaService.editTarefa(index);
+
     setState(() {
-      //Realizar O SAVE Novamente da tarefa que tem o ID que você recebeu no index.
+      //ToDo: Realizar O SAVE Novamente da tarefa que tem o ID que você recebeu no index.
+      if (response) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Tarefa editada com sucesso: $index',
+            ),
+          ),
+        );
+      }
     });
+    // setState(() {
+    //   tarefas.removeAt(index);
+    // });
   }
 
   void _filtrarTarefa(String tituloDaTarefa) {

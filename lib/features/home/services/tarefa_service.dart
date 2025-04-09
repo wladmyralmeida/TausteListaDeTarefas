@@ -30,6 +30,15 @@ class TarefaService {
     }
   }
 
-  //ToDo: criar método de editar tarefa
-  //https://jsonplaceholder.typicode.com/todos/1 -> PUT
+  Future<bool> editTarefa(int id) async {
+    final url = Uri.parse('$_baseUrl/$id');
+
+    final response = await http.put(url);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Deu erro ao tentar editar a tarefa de id: $id');
+    }
+  }
 }
