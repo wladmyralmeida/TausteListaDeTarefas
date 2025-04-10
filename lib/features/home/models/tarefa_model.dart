@@ -1,7 +1,7 @@
 class TarefaModel {
   final int id;
   final String titulo;
-  final bool isCompleted;
+  bool isCompleted;
   final String? descricao;
 
   TarefaModel({

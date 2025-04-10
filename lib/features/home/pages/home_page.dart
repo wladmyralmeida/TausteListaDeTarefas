@@ -106,6 +106,12 @@ class _HomePageState extends State<HomePage> {
                 return null;
               },
             ),
+            const SizedBox(height: 16),
+            const Text(
+              'Lista de Tarefas',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
                 itemCount: tarefas.length,
@@ -126,6 +132,16 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () => _removeTarefa(tarefa.id),
                           icon: const Icon(Icons.delete),
                         ),
+                        Checkbox(
+                          checkColor: Colors.white,
+                          activeColor: AppThemes.orange,
+                          value: tarefa.isCompleted,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              tarefa.isCompleted = value ?? false;
+                            });
+                          },
+                        ),
                       ],
                     ),
                   );
@@ -136,6 +152,8 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppThemes.orange,
+        foregroundColor: Colors.white,
         //footer
         onPressed: _addTarefa,
         child: const Icon(Icons.add),
