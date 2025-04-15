@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todoapp/core/app_themes.dart';
 import 'package:todoapp/features/home/models/tarefa_model.dart';
 import 'package:todoapp/core/widgets/custom_text_field.dart';
+import 'package:todoapp/features/home/pages/details_todo_page.dart';
 import 'package:todoapp/features/home/pages/widgets/drawer_widget.dart';
 import 'package:todoapp/features/home/pages/state/theme_provider.dart';
 import 'package:todoapp/features/home/services/tarefa_service.dart';
@@ -118,31 +119,54 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   final tarefa = tarefas[index];
 
-                  return ListTile(
-                    title: Text(tarefa.titulo),
-                    subtitle: Text(tarefa.descricao ?? ''),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () => _editarTarefa(tarefa.id),
-                          icon: const Icon(Icons.edit),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              DetailsTodoPage(heroTag: 'imageHero_$index'),
                         ),
-                        IconButton(
-                          onPressed: () => _removeTarefa(tarefa.id),
-                          icon: const Icon(Icons.delete),
+                      );
+                    },
+                    child: ListTile(
+                      leading: Hero(
+                        tag: 'imageHero_$index',
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            'https://inovareducacaodeexcelencia.com/image/catalog/Tarefa%20pra%20casa_01.jpg',
+                            height: 60,
+                            width: 60,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        Checkbox(
-                          checkColor: Colors.white,
-                          activeColor: AppThemes.orange,
-                          value: tarefa.isCompleted,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              tarefa.isCompleted = value ?? false;
-                            });
-                          },
-                        ),
-                      ],
+                      ),
+                      title: Text(tarefa.titulo),
+                      subtitle: Text(tarefa.descricao ?? ''),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () => _editarTarefa(tarefa.id),
+                            icon: const Icon(Icons.edit),
+                          ),
+                          IconButton(
+                            onPressed: () => _removeTarefa(tarefa.id),
+                            icon: const Icon(Icons.delete),
+                          ),
+                          Checkbox(
+                            checkColor: Colors.white,
+                            activeColor: AppThemes.orange,
+                            value: tarefa.isCompleted,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                tarefa.isCompleted = value ?? false;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
